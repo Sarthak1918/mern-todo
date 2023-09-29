@@ -31,7 +31,9 @@ dotenv.config({
 //Database connect
 connectDB()
 
-
+app.get("/",(req,res)=>{
+    res.send("Working")
+})
 
 
 
