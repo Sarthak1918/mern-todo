@@ -13,31 +13,32 @@ const app = express()
 //Middlewares
 app.use(express.json())
 app.use(cookieParser())
-app.use("/api/v1/users",userRouter)
-app.use("/api/v1/task",taskRouter)
 app.use(cors({
-    origin : [process.env.FRONTEND_URL],
-    methods : ["GET","PUT","POST","DELETE"],
-    credentials : true,
+    origin: [process.env.FRONTEND_URL],
+    methods: ["GET", "PUT", "POST", "DELETE"],
+    credentials: true,
 }))
+
+app.use("/api/v1/users", userRouter)
+app.use("/api/v1/task", taskRouter)
 
 //ERROR MIDDLEWARE
 app.use(errorMiddleWare)
 
 dotenv.config({
-    path :"./config.env"
+    path: "./config.env"
 })
 
 //Database connect
 connectDB()
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.send("Working")
 })
 
 
 
-app.listen(process.env.PORT,()=>{
+app.listen(process.env.PORT, () => {
     console.log(`server is running on port:${process.env.PORT} in ${process.env.NODE_ENV} mode`);
 })
 
