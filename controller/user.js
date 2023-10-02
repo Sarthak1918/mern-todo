@@ -42,10 +42,10 @@ export const register = async (req, res, next) => {
 export const login = async (req, res,next) => {
     try {
         const { email, password } = req.body
-    let user = await User.findOne({ email }).select("+password")
+    let user = await User.findOne({ email })
     if (!user) return next(new ErrorHandler("Invalid Username or password", 400))
     else {
-        const isPasswordMatch = bcrypt.compare(password, user.password)
+        const isPasswordMatch = await bcrypt.compare(password, user.password)
         if (!isPasswordMatch) return next(new ErrorHandler("Invalid Username or password", 404))
         else {
             tokenGenerator(res, user, 200, `Welcome back,${user.name}`)

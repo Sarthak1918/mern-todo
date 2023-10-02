@@ -4,12 +4,13 @@ import { Task } from "../models/task.js";
 export const addTask = async (req, res, next) => {
     try {
         const { title, description } = req.body;
+        const task = await Task.findOne({title})
+        if (task) return next(new ErrorHandler("Duplicate task is not allowed", 400))
         await Task.create({
             title,
             description,
             user: req.user._id
         })
-        console.log(req.user);
         res.status(201).json({
             success: true,
             message: "Task added successfully"

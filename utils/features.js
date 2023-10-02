@@ -9,6 +9,7 @@ export const tokenGenerator = (res, user, statusCode, message) => {
         secure: process.env.NODE_ENV === "development" ? false : true
     }).json({
         success: true,
-        message: message
+        message: message,
+        user
     })
 }
